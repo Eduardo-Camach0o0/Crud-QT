@@ -129,22 +129,26 @@ class Load_ui_empleados(QtWidgets.QMainWindow):
 
 
     def actualizar_empleado(self):
-        self.empleadoI.empleado.Nombre = str(self.sku_actualizar.text()).upper()
-        self.empleadoI.empleado.CuentaClabe = str(self.descripcion_actualizar.text()).lower()
-        self.empleadoI.empleado.Turno = int(self.existencia_actualizar.text())
-        self.empleadoI.empleado.Ingreso = str(self.precio_actualizar.text())
-        
 
-        response = self.empleadoI.UpdateEmpleado()
-
-        if  response == "ok":
-            self.label.setText("Exito al actualizar empleado")
-            str(self.sku_actualizar.setText(""))
-            str(self.descripcion_actualizar.setText(""))
-            str(self.existencia_actualizar.setText(str("")))
-            str(self.precio_actualizar.setText(str("")))
+        if self.sku_actualizar.text() == "" or self.descripcion_actualizar.text() == "" or self.existencia_actualizar.text() == "" or self.precio_actualizar.text() == "" :
+            self.label.setText("Todos los campos son obligatorios")
         else:
-            self.label.setText("Error al actualizar empleado")
+            self.empleadoI.empleado.Nombre = str(self.sku_actualizar.text()).upper()
+            self.empleadoI.empleado.CuentaClabe = str(self.descripcion_actualizar.text()).lower()
+            self.empleadoI.empleado.Turno = int(self.existencia_actualizar.text())
+            self.empleadoI.empleado.Ingreso = str(self.precio_actualizar.text())
+            
+
+            response = self.empleadoI.UpdateEmpleado()
+
+            if  response == "ok":
+                self.label.setText("Exito al actualizar empleado")
+                str(self.sku_actualizar.setText(""))
+                str(self.descripcion_actualizar.setText(""))
+                str(self.existencia_actualizar.setText(str("")))
+                str(self.precio_actualizar.setText(str("")))
+            else:
+                self.label.setText("Error al actualizar empleado")
 
 
         pass

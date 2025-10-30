@@ -131,22 +131,26 @@ class Load_ui_productos(QtWidgets.QMainWindow):
 
 
     def actualizar_producto(self):
-        self.productoI.producto.clave = str(self.sku_actualizar.text()).upper()
-        self.productoI.producto.descripcion = str(self.descripcion_actualizar.text()).lower()
-        self.productoI.producto.existencia = int(self.existencia_actualizar.text())
-        self.productoI.producto.precio = float(self.precio_actualizar.text())
-        
 
-        response = self.productoI.UpdateProducto()
-
-        if  response == "ok":
-            self.label.setText("Exito al actualizar producto")
-            str(self.sku_actualizar.setText(""))
-            str(self.descripcion_actualizar.setText(""))
-            str(self.existencia_actualizar.setText(str("")))
-            str(self.precio_actualizar.setText(str("")))
+        if self.sku_actualizar.text() == "" or self.descripcion_actualizar.text() == "" or self.existencia_actualizar.text() == "" or self.precio_actualizar.text() == "" :
+            self.label.setText("Todos los campos son obligatorios")
         else:
-            self.label.setText("Error al actualizar producto")
+            self.productoI.producto.clave = str(self.sku_actualizar.text()).upper()
+            self.productoI.producto.descripcion = str(self.descripcion_actualizar.text()).lower()
+            self.productoI.producto.existencia = int(self.existencia_actualizar.text())
+            self.productoI.producto.precio = float(self.precio_actualizar.text())
+            
+
+            response = self.productoI.UpdateProducto()
+
+            if  response == "ok":
+                self.label.setText("Exito al actualizar producto")
+                str(self.sku_actualizar.setText(""))
+                str(self.descripcion_actualizar.setText(""))
+                str(self.existencia_actualizar.setText(str("")))
+                str(self.precio_actualizar.setText(str("")))
+            else:
+                self.label.setText("Error al actualizar producto")
 
 
         pass
