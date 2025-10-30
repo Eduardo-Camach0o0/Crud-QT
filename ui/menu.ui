@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>VentanaMenu</class>
+ <widget class="QMainWindow" name="VentanaMenu">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>300</width>
+    <height>500</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Menú Principal</string>
+  </property>
+  
+  <property name="styleSheet">
+   <string notr="true">
+/* Fondo principal (el widget central) */
+QWidget#centralwidget {
+    background-color: #3c3c3c; /* Gris oscuro, no negro */
+}
+
+/* Estilo general de botones (Productos, Empleados) */
+QPushButton {
+    background-color: #555555; /* Botones más claros */
+    color: #f0f0f0;
+    border: 1px solid #666666;
+    border-radius: 6px;
+    padding: 10px 20px;
+    font-weight: bold;
+    font-size: 11pt;
+    min-width: 150px;
+}
+
+QPushButton:hover {
+    background-color: #666666;
+    border: 1px solid #777777;
+}
+
+QPushButton:pressed {
+    background-color: #777777;
+}
+
+/* Botón de salir (rojo) */
+#boton_logout {
+    background-color: #c62828;
+    color: white;
+    border: none;
+}
+
+#boton_logout:hover {
+    background-color: #e53935;
+}
+
+#boton_logout:pressed {
+    background-color: #b71c1c;
+}
+
+/* Estilo para QMainWindow (para que la barra de menú no se vea blanca) */
+QMainWindow {
+    background-color: #3c3c3c;
+}
+</string>
+  </property>
+  
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="0" column="1">
+     <spacer name="verticalSpacer_top">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="0">
+     <spacer name="horizontalSpacer_left">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    
+    <item row="1" column="1">
+     <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>15</number> </property>
+      <item>
+       <widget class="QPushButton" name="boton_productos">
+        <property name="text">
+         <string>Productos</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="boton_empleados">
+        <property name="text">
+         <string>Empleados</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>20</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item>
+       <widget class="QPushButton" name="boton_logout">
+        <property name="text">
+         <string>Cerrar Sesión</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    
+    <item row="1" column="2">
+     <spacer name="horizontalSpacer_right">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="1">
+     <spacer name="verticalSpacer_bottom">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>40</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+   </layout>
+  </widget>
+  
+  <widget class="QMenuBar" name="menubar"/>
+  <widget class="QStatusBar" name="statusbar"/>
+  
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
