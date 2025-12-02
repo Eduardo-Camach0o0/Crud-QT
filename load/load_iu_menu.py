@@ -11,6 +11,7 @@ class VentanaMenu(QMainWindow):
 
   self.boton_productos.clicked.connect(self.ir_a_productos)
   self.boton_empleados.clicked.connect(self.ir_a_empleados)
+  self.boton_panel_principal.clicked.connect(self.ir_a_vizulizador)
   self.boton_logout.clicked.connect(self.ir_a_login)
 
 
@@ -31,9 +32,18 @@ class VentanaMenu(QMainWindow):
   pass
 
  def ir_a_login(self):
-
   from load.load_iu_login import Login
 
   self.ventana_login = Login()
   self.ventana_login.show()
   self.close() 
+  pass
+
+
+ def ir_a_vizulizador(self):
+   from load.load_ui_vizualizador import Vizualizador
+   
+   self.ventana_vizualizador = Vizualizador()
+   self.ventana_vizualizador.show()
+   self.close()
+   pass

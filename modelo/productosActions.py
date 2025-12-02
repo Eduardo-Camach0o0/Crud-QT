@@ -1,84 +1,68 @@
-from modelo.conexion import Conexion
+
+from modelo.conexion import get_connection
 from modelo.producto import Producto
+
+# from conexion import get_connection
+# from producto import Producto
 
 class ProductosAct():
 
     def __init__(self):
-        self.conexion = Conexion()
         self.producto = Producto()
 
-    def selectProductos(self):
-        self.conexion.establecerConexio()
-        cursor =  self.conexion.conexion.cursor()
-        query = "SELECT * FROM producto"
-        cursor.execute(query)
-        filas = cursor.fetchall()
+    def execute_procedure(self, procedure_name, args=None):
+        conn = get_connection()
+        try:
+            with conn.cursor() as cursor:
+                cursor.callproc(procedure_name, args or [])
+            conn.commit()
+            return "ok"
+        except Exception as e:
+            print(f"Error executing {procedure_name}: {e}")
+            return None
+        finally:
+            conn.close()
 
-        # for fila in filas:
-        #     print(fila)
-        
-        self.conexion.cerrarConexion()
-        return filas
+    def fetch_procedure(self, procedure_name, args=None):
+        conn = get_connection()
+        try:
+            with conn.cursor() as cursor:
+                cursor.callproc(procedure_name, args or [])
+                return cursor.fetchall()
+        except Exception as e:
+            print(f"Error fetching {procedure_name}: {e}")
+            return []
+        finally:
+            conn.close()
+
+    def selectProductos(self):
+        return self.fetch_procedure("sp_producto_listar")
 
     def InsertProducto(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_insertar_producto] @clave=?, @descripcion=?, @existencia=?, @precio=?"
-        param = (self.producto.clave,self.producto.descripcion, self.producto.existencia,self.producto.precio )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-        return "ok"
+        return self.execute_procedure("sp_producto_nuevo", [
+            self.producto.descripcion, 
+            self.producto.precio, 
+            self.producto.cantidad
+        ])
     
     def UpdateProducto(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_actualizar_producto] @id_producto=?,@clave=?, @descripcion=?, @existencia=?, @precio=?"
-        param = (self.producto.id_product,self.producto.clave,self.producto.descripcion, self.producto.existencia,self.producto.precio )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-        return "ok"
+        return self.execute_procedure("sp_producto_actualizar", [
+            self.producto.id_product, 
+            self.producto.descripcion, 
+            self.producto.precio
+        ])
 
     def DeleteProducto(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_eliminar_producto] @id_producto=?"
-        param = (self.producto.id_product, )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-        return "ok"
-
+        return self.execute_procedure("sp_producto_eliminar", [self.producto.id_product])
 
     def searchProducto(self):
-        self.conexion.establecerConexio()
-        sp = "exec  [dbo].[sp_buscar_producto] @SKU=?"
-        param = (self.producto.clave, )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        fila = cursor.fetchall()
-        cursor.commit()
-        self.conexion.cerrarConexion()
-       
-        return fila
+        return self.fetch_procedure("sp_producto_buscar", [self.producto.id_product])
 
-
-
-    def CountProducto(self):
-        self.conexion.establecerConexio()
-        funcion = "SELECT [dbo].[fn_contar_productos]()"
-       
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(funcion)
-        cantidad = cursor.fetchone()
-        print(cantidad[0])
-        # cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
+    def setEstadoProducto(self):
+        return self.execute_procedure("sp_producto_set_estado", [
+            self.producto.id_product, 
+            self.producto.estado
+        ])
 
 
 

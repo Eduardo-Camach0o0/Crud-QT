@@ -1,151 +1,189 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>Widget</class>
- <widget class="QWidget" name="Widget">
+ <class>LoginWidget</class>
+ <widget class="QWidget" name="LoginWidget">
   <property name="geometry">
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>450</width>
-    <height>350</height>
+    <width>500</width>
+    <height>600</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Inicio de Sesión</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* === Ventana Principal === */
-QWidget {
-	background-color: #3c3c3c; /* Fondo gris oscuro */
-}
+   <string notr="true">
+    /* === ESTILO GENERAL (Tema Restaurante) === */
+    QWidget#LoginWidget {
+        background-color: #ffffff; /* Fondo blanco */
+        font-family: &quot;Segoe UI&quot;, &quot;Work Sans&quot;, sans-serif;
+    }
 
-/* === Tarjeta de Login === */
-QGroupBox {
-	background-color: #4a4a4a; /* Gris medio para la &quot;tarjeta&quot; */
-	border: 1px solid #5a5a5a;
-	border-radius: 8px;
-	margin-top: 10px;
-}
+    /* === TARJETA CENTRAL === */
+    QFrame#cardFrame {
+        background-color: #1f2937; /* Gris tarjeta */
+        border-radius: 16px;
+        border: 1px solid #374151;
+    }
 
-QGroupBox::title {
-	subcontrol-origin: margin;
-	subcontrol-position: top center;
-	padding: 0 3px;
-	color: #dddddd; /* Color de texto claro */
-	font-weight: bold;
-}
+    /* === TEXTOS === */
+    QLabel {
+        color: #f3f4f6;
+        border: none;
+    }
+    QLabel#lblTitle {
+        font-size: 22px;
+        font-weight: bold;
+        color: #ffffff;
+    }
+    QLabel#lblSubtitle {
+        font-size: 14px;
+        color: #9ca3af;
+    }
 
-/* === Etiquetas (&quot;Usuario:&quot;, &quot;Contraseña:&quot;) === */
-QLabel {
-	font-size: 10pt;
-	color: #dddddd;
-	font-weight: bold;
-	background-color: transparent;
-}
+    /* === INPUTS (MANTENIENDO TUS NOMBRES) === */
+    QLineEdit {
+        background-color: #111827;
+        border: 1px solid #374151;
+        border-radius: 8px;
+        padding: 10px 12px;
+        font-size: 14px;
+        color: white;
+        selection-background-color: #f9f9f9ff;
+        selection-color: #102216;
+    }
+    QLineEdit:focus {
+        border: 1px solid #f9f9f9ff; /* Verde al enfocar */
+        background-color: #050b07;
+    }
+    QLineEdit::placeholder {
+        color: #6b7280;
+    }
 
-/* === Campos de texto === */
-QLineEdit {
-	font-size: 10pt;
-	padding: 5px;
-	background-color: #505050;
-	color: #e0e0e0;
-	border: 1px solid #666666;
-	border-radius: 4px;
-}
+    /* === BOTÓN INGRESAR === */
+    QPushButton#boton_ingresar {
+        background-color: #4d78f9ff; /* Verde Primario */
+        color: #102216;
+        border: none;
+        border-radius: 8px;
+        font-size: 16px;
+        font-weight: bold;
+        padding: 12px;
+    }
+    QPushButton#boton_ingresar:hover {
+        background-color: #8fa8f5ff;
+    }
+    QPushButton#boton_ingresar:pressed {
+        background-color: #8fa8f5ff;
+        padding-top: 14px;
+    }
 
-QLineEdit:focus {
-	border: 1px solid #888888;
-}
-
-/* === Botón de &quot;Ingresar&quot; (Azul) === */
-QPushButton {
-	font-size: 10pt;
-	font-weight: bold;
-	padding: 8px;
-	background-color: #0078d7; /* Mantenemos el azul como acento */
-	color: white;
-	border: none;
-	border-radius: 3px;
-}
-
-QPushButton:hover {
-	background-color: #005a9e; /* Azul más oscuro */
-}
-
-/* === Label de Estado (Error) === */
-#label_status {
-	color: #e53935; /* Un rojo más brillante para modo oscuro */
-	font-size: 9pt;
-}</string>
+    /* === STATUS LABEL === */
+    QLabel#label_status {
+        color: #ef4444; /* Rojo error */
+        font-size: 12px;
+        font-weight: bold;
+    }
+   </string>
   </property>
-  <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="0">
-    <spacer name="verticalSpacer">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="1" column="0">
-    <spacer name="horizontalSpacer">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0"><spacer><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+   <item row="0" column="2"><spacer><property name="orientation"><enum>Qt::Horizontal</enum></property></spacer></item>
+   <item row="0" column="1"><spacer><property name="orientation"><enum>Qt::Vertical</enum></property></spacer></item>
+   <item row="2" column="1"><spacer><property name="orientation"><enum>Qt::Vertical</enum></property></spacer></item>
+
    <item row="1" column="1">
-    <widget class="QGroupBox" name="groupBox">
-     <property name="title">
-      <string>Iniciar Sesión</string>
+    <widget class="QFrame" name="cardFrame">
+     <property name="minimumSize">
+      <size>
+       <width>380</width>
+       <height>450</height>
+      </size>
+     </property>
+     <property name="frameShape">
+      <enum>QFrame::StyledPanel</enum>
+     </property>
+     <property name="frameShadow">
+      <enum>QFrame::Raised</enum>
      </property>
      <layout class="QVBoxLayout" name="verticalLayout">
+      <property name="spacing">
+       <number>20</number>
+      </property>
+      <property name="leftMargin">
+       <number>32</number>
+      </property>
+      <property name="topMargin">
+       <number>40</number>
+      </property>
+      <property name="rightMargin">
+       <number>32</number>
+      </property>
+      <property name="bottomMargin">
+       <number>40</number>
+      </property>
+
       <item>
-       <layout class="QFormLayout" name="formLayout">
-        <item row="0" column="0">
-         <widget class="QLabel" name="label">
-          <property name="text">
-           <string>Usuario:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="0" column="1">
-         <widget class="QLineEdit" name="line_edit_usuario"/>
-        </item>
-        <item row="1" column="0">
-         <widget class="QLabel" name="label_2">
-          <property name="text">
-           <string>Contraseña:</string>
-          </property>
-         </widget>
-        </item>
-        <item row="1" column="1">
-         <widget class="QLineEdit" name="line_edit_password">
-          <property name="echoMode">
-           <enum>QLineEdit::Password</enum>
-          </property>
-         </widget>
-        </item>
-       </layout>
-      </item>
-      <item>
-       <widget class="QPushButton" name="boton_ingresar">
+       <widget class="QLabel" name="lblIcon">
+        <property name="font">
+         <font>
+          <pointsize>40</pointsize>
+         </font>
+        </property>
+        <property name="styleSheet">
+         <string>color: #13ec5b;</string>
+        </property>
         <property name="text">
-         <string>Ingresar</string>
+         <string>👨‍🍳</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
         </property>
        </widget>
       </item>
+
+      <item>
+       <widget class="QLabel" name="lblTitle">
+        <property name="text">
+         <string>Bienvenido</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QLabel" name="lblSubtitle">
+        <property name="text">
+         <string>Gestiona tu restaurante</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <widget class="QLineEdit" name="line_edit_usuario">
+        <property name="placeholderText">
+         <string>Usuario</string>
+        </property>
+       </widget>
+      </item>
+
+      <item>
+       <widget class="QLineEdit" name="line_edit_password">
+        <property name="echoMode">
+         <enum>QLineEdit::Password</enum>
+        </property>
+        <property name="placeholderText">
+         <string>Contraseña</string>
+        </property>
+       </widget>
+      </item>
+
       <item>
        <widget class="QLabel" name="label_status">
         <property name="text">
@@ -156,34 +194,34 @@ QPushButton:hover {
         </property>
        </widget>
       </item>
+
+      <item>
+       <spacer name="verticalSpacer_Internal">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+
+      <item>
+       <widget class="QPushButton" name="boton_ingresar">
+        <property name="text">
+         <string>INGRESAR</string>
+        </property>
+        <property name="cursor">
+         <cursorShape>PointingHandCursor</cursorShape>
+        </property>
+       </widget>
+      </item>
+
      </layout>
     </widget>
-   </item>
-   <item row="1" column="2">
-    <spacer name="horizontalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Horizontal</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>40</width>
-       <height>20</height>
-      </size>
-     </property>
-    </spacer>
-   </item>
-   <item row="2" column="1">
-    <spacer name="verticalSpacer_2">
-     <property name="orientation">
-      <enum>Qt::Vertical</enum>
-     </property>
-     <property name="sizeHint" stdset="0">
-      <size>
-       <width>20</width>
-       <height>40</height>
-      </size>
-     </property>
-    </spacer>
    </item>
   </layout>
  </widget>

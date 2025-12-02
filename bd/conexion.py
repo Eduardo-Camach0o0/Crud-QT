@@ -19,9 +19,3 @@ def get_connection():
         port=Config.DB_PORT,
         cursorclass=pymysql.cursors.DictCursor
     )
-
-
-        
-
-# a = Conexion()
-# a.establecerConexio()

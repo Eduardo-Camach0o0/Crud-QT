@@ -11,103 +11,10 @@
    </rect>
   </property>
   <property name="windowTitle">
-   <string>MainWindow</string>
+   <string>Gestión de Productos</string>
   </property>
   <property name="styleSheet">
-   <string notr="true">/* ====== Ventana Principal ====== */
-QMainWindow {
-    background-color: #3c3c3c; /* Un gris oscuro, no negro */
-}
-
-/* ====== Marcos ====== */
-QFrame {
-    background-color: #4a4a4a; /* Gris medio para las &quot;tarjetas&quot; */
-    border: 1px solid #5a5a5a;
-    border-radius: 8px;
-}
-
-/* ====== Botones ====== */
-QPushButton {
-    background-color: #555555; /* Botones más claros */
-    color: #f0f0f0;
-    border: 1px solid #666666;
-    border-radius: 6px;
-    padding: 6px 12px;
-    font-weight: bold;
-}
-
-QPushButton:hover {
-    background-color: #666666;
-    border: 1px solid #777777;
-}
-
-QPushButton:pressed {
-    background-color: #777777;
-}
-
-/* ====== Botón de salir (rojo) ====== */
-#boton_salir {
-    background-color: #c62828;
-    color: white;
-    border: none;
-    border-radius: 6px;
-    font-weight: bold;
-}
-
-#boton_salir:hover {
-    background-color: #e53935;
-}
-
-#boton_salir:pressed {
-    background-color: #b71c1c;
-}
-
-/* ====== Campos de texto ====== */
-QLineEdit {
-    background-color: #505050; /* Un poco más claro que el marco */
-    color: #e0e0e0;
-    border: 1px solid #666666;
-    border-radius: 4px;
-    padding: 4px;
-}
-
-QLineEdit:focus {
-    border: 1px solid #888888;
-}
-
-/* ====== Etiquetas ====== */
-QLabel {
-    color: #dddddd;
-    font-weight: bold;
-    background-color: transparent; /* Importante para que no tapen el fondo */
-}
-
-/* ====== Barra lateral ====== */
-#frame_lateral {
-    background-color: #424242; /* Un gris intermedio */
-    border-right: 1px solid #555555;
-}
-
-/* ====== Stacked Widget (Fondo de acciones) ====== */
-QStackedWidget {
-    background-color: #4a4a4a; /* Mismo gris que los marcos */
-    border: none;
-}
-
-/* ====== Botones de acciones laterales ====== */
-#boton_agregar, #boton_actualizar, #boton_eliminar, #boton_buscar, #boton_consultar {
-    background-color: transparent;
-    color: #cccccc;
-    text-align: left;
-    border: none;
-    padding: 8px;
-    font-weight: bold;
-}
-
-#boton_agregar:hover, #boton_actualizar:hover, #boton_eliminar:hover, #boton_buscar:hover, #boton_consultar:hover {
-    background-color: #555555; /* Un hover gris más notable */
-    color: white;
-}</string>
+   <string notr="true">background-color: #f6f8f6; font-family: &quot;Segoe UI&quot;, &quot;Work Sans&quot;, sans-serif; color: #1f2937;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <property name="minimumSize">
@@ -134,6 +41,25 @@ QStackedWidget {
     </property>
     <item>
      <widget class="QFrame" name="frame_superior">
+      <property name="styleSheet">
+       <string notr="true">
+        QFrame#frame_superior {
+            background-color: white;
+            border-bottom: 1px solid #e5e7eb;
+        }
+        QPushButton {
+            background-color: transparent;
+            border: none;
+            border-radius: 8px;
+            color: #1f2937;
+            padding: 4px;
+            font-weight: bold;
+        }
+        QPushButton:hover {
+            background-color: #f3f4f6;
+        }
+       </string>
+      </property>
       <property name="frameShape">
        <enum>QFrame::StyledPanel</enum>
       </property>
@@ -255,9 +181,33 @@ QStackedWidget {
        </property>
        <item>
         <widget class="QFrame" name="frame_lateral">
+         <property name="styleSheet">
+          <string notr="true">
+           QFrame#frame_lateral {
+            background-color: white;
+            border-right: 1px solid #e5e7eb;
+            border-radius: 0px;
+           }
+           QPushButton {
+            background-color: transparent;
+            color: #6b7280;
+            text-align: left;
+            padding-left: 20px;
+            border: none;
+            font-size: 14px;
+            border-radius: 8px;
+            height: 40px;
+           }
+           QPushButton:hover {
+            background-color: #f3f4f6;
+            color: #1f2937;
+            font-weight: bold;
+           }
+          </string>
+         </property>
          <property name="minimumSize">
           <size>
-           <width>200</width>
+           <width>220</width>
            <height>0</height>
           </size>
          </property>
@@ -399,562 +349,346 @@ QStackedWidget {
          <layout class="QVBoxLayout" name="verticalLayout_3">
           <item>
            <widget class="QStackedWidget" name="stackedWidget">
+            <property name="styleSheet">
+             <string notr="true">
+              QLineEdit {
+               background-color: white;
+               border: 1px solid #d1d5db;
+               border-radius: 6px;
+               padding: 8px;
+               font-size: 14px;
+               color: #374151;
+              }
+              QLineEdit:focus {
+               border: 2px solid #3b82f6;
+              }
+              QLabel {
+               color: #374151;
+               font-weight: 500;
+               font-size: 14px;
+               margin-bottom: 4px;
+              }
+              /* Primary Action Buttons */
+              QPushButton#accion_guardar, QPushButton#accion_actualizar, QPushButton#accion_eliminar, QPushButton#buscar_buscar {
+               background-color: #3b82f6;
+               color: white;
+               border: none;
+               border-radius: 6px;
+               padding: 8px 16px;
+               font-weight: bold;
+               font-size: 14px;
+              }
+              QPushButton#accion_guardar:hover, QPushButton#accion_actualizar:hover, QPushButton#accion_eliminar:hover, QPushButton#buscar_buscar:hover {
+               background-color: #2563eb;
+              }
+              /* Secondary Action Buttons */
+              QPushButton#buscar_guardar, QPushButton#buscar_actualizar, QPushButton#buscar_eliminar, QPushButton#accion_limpiar, QPushButton#boton_refresh {
+               background-color: white;
+               border: 1px solid #d1d5db;
+               color: #374151;
+               border-radius: 6px;
+               padding: 8px 16px;
+               font-weight: 500;
+               font-size: 14px;
+              }
+              QPushButton#buscar_guardar:hover, QPushButton#buscar_actualizar:hover, QPushButton#buscar_eliminar:hover, QPushButton#accion_limpiar:hover, QPushButton#boton_refresh:hover {
+               background-color: #f9fafb;
+               border-color: #9ca3af;
+              }
+             </string>
+            </property>
             <property name="currentIndex">
              <number>4</number>
             </property>
             <widget class="QWidget" name="page_agregar">
-             <widget class="QWidget" name="layoutWidget">
-              <property name="geometry">
-               <rect>
-                <x>100</x>
-                <y>80</y>
-                <width>421</width>
-                <height>261</height>
-               </rect>
-              </property>
-              <layout class="QVBoxLayout" name="verticalLayout_4">
-               <item>
-                <layout class="QGridLayout" name="gridLayout">
-                 <item row="2" column="0">
-                  <widget class="QLabel" name="label_4">
-                   <property name="text">
-                    <string>Existencia</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="2" column="1">
-                  <widget class="QLineEdit" name="existencia_agregar">
-                   <property name="minimumSize">
-                    <size>
-                     <width>80</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>80</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="1">
-                  <widget class="QLineEdit" name="sku_agregar">
-                   <property name="minimumSize">
-                    <size>
-                     <width>150</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>150</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="0">
-                  <widget class="QLabel" name="label_2">
-                   <property name="minimumSize">
-                    <size>
-                     <width>100</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>100</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                   <property name="text">
-                    <string>SKU</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="0">
-                  <widget class="QLabel" name="label_3">
-                   <property name="text">
-                    <string>Descripción</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="1" column="1">
-                  <widget class="QLineEdit" name="descripcion_agregar"/>
-                 </item>
-                 <item row="3" column="0">
-                  <widget class="QLabel" name="label_5">
-                   <property name="text">
-                    <string>Precio</string>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="3" column="1">
-                  <widget class="QLineEdit" name="precio_agregar">
-                   <property name="minimumSize">
-                    <size>
-                     <width>80</width>
-                     <height>0</height>
-                    </size>
-                   </property>
-                   <property name="maximumSize">
-                    <size>
-                     <width>80</width>
-                     <height>16777215</height>
-                    </size>
-                   </property>
-                  </widget>
-                 </item>
-                 <item row="0" column="2">
-                  <widget class="QPushButton" name="buscar_guardar">
-                   <property name="text">
-                    <string/>
-                   </property>
-                   <property name="icon">
-                    <iconset>
-                     <normaloff>../resources/images/BUSCAR.png</normaloff>../resources/images/BUSCAR.png</iconset>
-                   </property>
-                  </widget>
-                 </item>
-                </layout>
-               </item>
-               <item>
-                <widget class="QPushButton" name="accion_guardar">
-                 <property name="text">
-                  <string>Guardar</string>
-                 </property>
-                 <property name="icon">
-                  <iconset>
-                   <normaloff>../resources/images/guardar.png</normaloff>../resources/images/guardar.png</iconset>
-                 </property>
-                 <property name="iconSize">
-                  <size>
-                   <width>32</width>
-                   <height>32</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-            </widget>
-            <widget class="QWidget" name="page_actualizar">
-             <widget class="QWidget" name="layoutWidget_2">
-              <property name="geometry">
-               <rect>
-                <x>110</x>
-                <y>91</y>
-                <width>419</width>
-                <height>202</height>
-               </rect>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_2">
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_6">
-                 <property name="text">
-                  <string>Existencia</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="existencia_actualizar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="sku_actualizar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>150</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>150</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_7">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>SKU</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_8">
-                 <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="descripcion_actualizar"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_9">
-                 <property name="text">
-                  <string>Precio</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="precio_actualizar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="buscar_actualizar">
-                 <property name="text">
-                  <string/>
-                 </property>
-                 <property name="icon">
-                  <iconset>
-                   <normaloff>../resources/images/BUSCAR.png</normaloff>../resources/images/BUSCAR.png</iconset>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QPushButton" name="accion_actualizar">
-              <property name="geometry">
-               <rect>
-                <x>110</x>
-                <y>300</y>
-                <width>419</width>
-                <height>50</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Actualizar</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../resources/images/boton_modificar.png</normaloff>../resources/images/boton_modificar.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-            </widget>
-            <widget class="QWidget" name="page_eliminar">
-             <widget class="QWidget" name="layoutWidget_3">
-              <property name="geometry">
-               <rect>
-                <x>90</x>
-                <y>100</y>
-                <width>419</width>
-                <height>202</height>
-               </rect>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_3">
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="precio_eliminar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="descripcion_eliminar"/>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_13">
-                 <property name="text">
-                  <string>Precio</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_12">
-                 <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_11">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>SKU</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="sku_eliminar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>150</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>150</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_10">
-                 <property name="text">
-                  <string>Existencia</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="existencia_eliminar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="buscar_eliminar">
-                 <property name="text">
-                  <string>Buscar</string>
-                 </property>
-                 <property name="icon">
-                  <iconset>
-                   <normaloff>../resources/images/BUSCAR.png</normaloff>../resources/images/BUSCAR.png</iconset>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
-             <widget class="QPushButton" name="accion_eliminar">
-              <property name="geometry">
-               <rect>
-                <x>90</x>
-                <y>309</y>
-                <width>419</width>
-                <height>50</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Eliminar</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../resources/images/boton_eliminar.png</normaloff>../resources/images/boton_eliminar.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_agregar">
+              <item>
+               <widget class="QLabel" name="label_desc_add">
+                <property name="text">
+                 <string>Descripción</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="descripcion_agregar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_cant_add">
+                <property name="text">
+                 <string>Cantidad</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="cantidad_agregar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_precio_add">
+                <property name="text">
+                 <string>Precio</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="precio_agregar"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_agregar">
+                <item>
+                 <widget class="QPushButton" name="accion_guardar">
+                  <property name="text">
+                   <string>Guardar</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="buscar_guardar">
+                  <property name="text">
+                   <string>Buscar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_agregar">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="page_buscar">
-             <widget class="QPushButton" name="accion_limpiar">
-              <property name="geometry">
-               <rect>
-                <x>90</x>
-                <y>329</y>
-                <width>419</width>
-                <height>50</height>
-               </rect>
-              </property>
-              <property name="text">
-               <string>Limpiar</string>
-              </property>
-              <property name="icon">
-               <iconset>
-                <normaloff>../resources/images/limpiar.png</normaloff>../resources/images/limpiar.png</iconset>
-              </property>
-              <property name="iconSize">
-               <size>
-                <width>32</width>
-                <height>32</height>
-               </size>
-              </property>
-             </widget>
-             <widget class="QWidget" name="layoutWidget_4">
-              <property name="geometry">
-               <rect>
-                <x>90</x>
-                <y>120</y>
-                <width>419</width>
-                <height>202</height>
-               </rect>
-              </property>
-              <layout class="QGridLayout" name="gridLayout_4">
-               <item row="2" column="0">
-                <widget class="QLabel" name="label_17">
-                 <property name="text">
-                  <string>Existencia</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="1">
-                <widget class="QLineEdit" name="sku_buscar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>150</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>150</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="0" column="0">
-                <widget class="QLabel" name="label_16">
-                 <property name="minimumSize">
-                  <size>
-                   <width>100</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>100</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                 <property name="text">
-                  <string>SKU</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="0">
-                <widget class="QLabel" name="label_15">
-                 <property name="text">
-                  <string>Descripción</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="2" column="1">
-                <widget class="QLineEdit" name="existencia_buscar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="1">
-                <widget class="QLineEdit" name="precio_buscar">
-                 <property name="minimumSize">
-                  <size>
-                   <width>80</width>
-                   <height>0</height>
-                  </size>
-                 </property>
-                 <property name="maximumSize">
-                  <size>
-                   <width>80</width>
-                   <height>16777215</height>
-                  </size>
-                 </property>
-                </widget>
-               </item>
-               <item row="3" column="0">
-                <widget class="QLabel" name="label_14">
-                 <property name="text">
-                  <string>Precio</string>
-                 </property>
-                </widget>
-               </item>
-               <item row="1" column="1">
-                <widget class="QLineEdit" name="descripcion_buscar"/>
-               </item>
-               <item row="0" column="2">
-                <widget class="QPushButton" name="buscar_buscar">
-                 <property name="text">
-                  <string>Buscar</string>
-                 </property>
-                 <property name="icon">
-                  <iconset>
-                   <normaloff>../resources/images/BUSCAR.png</normaloff>../resources/images/BUSCAR.png</iconset>
-                 </property>
-                </widget>
-               </item>
-              </layout>
-             </widget>
+             <layout class="QVBoxLayout" name="verticalLayout_buscar">
+              <item>
+               <widget class="QLabel" name="label_id_search">
+                <property name="text">
+                 <string>ID Producto</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="id_producto_buscar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_desc_search">
+                <property name="text">
+                 <string>Descripción</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="descripcion_buscar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_cant_search">
+                <property name="text">
+                 <string>Cantidad</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="cantidad_buscar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_precio_search">
+                <property name="text">
+                 <string>Precio</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="precio_buscar"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_buscar">
+                <item>
+                 <widget class="QPushButton" name="buscar_buscar">
+                  <property name="text">
+                   <string>Buscar</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="accion_limpiar">
+                  <property name="text">
+                   <string>Limpiar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_buscar">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_actualizar">
+             <layout class="QVBoxLayout" name="verticalLayout_actualizar">
+              <item>
+               <widget class="QLabel" name="label_id_upd">
+                <property name="text">
+                 <string>ID Producto</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="id_producto_actualizar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_desc_upd">
+                <property name="text">
+                 <string>Descripción</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="descripcion_actualizar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_cant_upd">
+                <property name="text">
+                 <string>Cantidad</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="cantidad_actualizar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_precio_upd">
+                <property name="text">
+                 <string>Precio</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="precio_actualizar"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_actualizar">
+                <item>
+                 <widget class="QPushButton" name="accion_actualizar">
+                  <property name="text">
+                   <string>Actualizar</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="buscar_actualizar">
+                  <property name="text">
+                   <string>Buscar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_actualizar">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
+            </widget>
+            <widget class="QWidget" name="page_eliminar">
+             <layout class="QVBoxLayout" name="verticalLayout_eliminar">
+              <item>
+               <widget class="QLabel" name="label_id_del">
+                <property name="text">
+                 <string>ID Producto</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="id_producto_eliminar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_desc_del">
+                <property name="text">
+                 <string>Descripción</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="descripcion_eliminar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_cant_del">
+                <property name="text">
+                 <string>Cantidad</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="cantidad_eliminar"/>
+              </item>
+              <item>
+               <widget class="QLabel" name="label_precio_del">
+                <property name="text">
+                 <string>Precio</string>
+                </property>
+               </widget>
+              </item>
+              <item>
+               <widget class="QLineEdit" name="precio_eliminar"/>
+              </item>
+              <item>
+               <layout class="QHBoxLayout" name="horizontalLayout_eliminar">
+                <item>
+                 <widget class="QPushButton" name="accion_eliminar">
+                  <property name="text">
+                   <string>Eliminar</string>
+                  </property>
+                 </widget>
+                </item>
+                <item>
+                 <widget class="QPushButton" name="buscar_eliminar">
+                  <property name="text">
+                   <string>Buscar</string>
+                  </property>
+                 </widget>
+                </item>
+               </layout>
+              </item>
+              <item>
+               <spacer name="verticalSpacer_eliminar">
+                <property name="orientation">
+                 <enum>Qt::Vertical</enum>
+                </property>
+                <property name="sizeHint" stdset="0">
+                 <size>
+                  <width>20</width>
+                  <height>40</height>
+                 </size>
+                </property>
+               </spacer>
+              </item>
+             </layout>
             </widget>
             <widget class="QWidget" name="page_consultar">
              <layout class="QVBoxLayout" name="verticalLayout_6">
@@ -1048,7 +782,7 @@ QTableWidget QScrollBar::sub-line:vertical {
                 </property>
                 <column>
                  <property name="text">
-                  <string>SKU</string>
+                  <string>ID</string>
                  </property>
                 </column>
                 <column>
@@ -1058,12 +792,17 @@ QTableWidget QScrollBar::sub-line:vertical {
                 </column>
                 <column>
                  <property name="text">
-                  <string>Existencia</string>
+                  <string>Precio</string>
                  </property>
                 </column>
                 <column>
                  <property name="text">
-                  <string>Precio</string>
+                  <string>Cantidad</string>
+                 </property>
+                </column>
+                <column>
+                 <property name="text">
+                  <string>Estado</string>
                  </property>
                 </column>
                </widget>

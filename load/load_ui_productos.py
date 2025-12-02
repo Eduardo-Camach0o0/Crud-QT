@@ -45,25 +45,25 @@ class Load_ui_productos(QtWidgets.QMainWindow):
         self.boton_eliminar.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.page_eliminar))
         self.boton_consultar.clicked.connect(lambda: self.stackedWidget.setCurrentWidget(self.page_consultar))
 
-        self.accion_guardar.clicked.connect(self.guardar_producto) #
-        self.buscar_guardar.clicked.connect(self.buscar_guardar_producto)#
+        self.accion_guardar.clicked.connect(self.guardar_producto)
+        self.buscar_guardar.clicked.connect(self.buscar_guardar_producto)
 
-        self.accion_actualizar.clicked.connect(self.actualizar_producto) #
-        self.buscar_actualizar.clicked.connect(self.buscar_actualizar_producto) #
+        self.accion_actualizar.clicked.connect(self.actualizar_producto)
+        self.buscar_actualizar.clicked.connect(self.buscar_actualizar_producto)
 
-        self.accion_eliminar.clicked.connect(self.eliminar_producto)#
-        self.buscar_eliminar.clicked.connect(self.buscar_eliminar_producto) #
+        self.accion_eliminar.clicked.connect(self.eliminar_producto)
+        self.buscar_eliminar.clicked.connect(self.buscar_eliminar_producto)
 
-        self.accion_limpiar.clicked.connect(self.limpiar_general) #
-        self.buscar_buscar.clicked.connect(self.buscar_general)#
+        self.accion_limpiar.clicked.connect(self.limpiar_general)
+        self.buscar_buscar.clicked.connect(self.buscar_general)
 
-        self.boton_refresh.clicked.connect(self.actualizar_tabla) #
+        self.boton_refresh.clicked.connect(self.actualizar_tabla)
 
-        self.boton_actualizar.clicked.connect(self.limpiar)#
-        self.boton_agregar.clicked.connect(self.limpiar)#
-        self.boton_consultar.clicked.connect(self.limpiar)#
-        self.boton_eliminar.clicked.connect(self.limpiar)#
-        self.boton_buscar.clicked.connect(self.limpiar)#
+        self.boton_actualizar.clicked.connect(self.limpiar)
+        self.boton_agregar.clicked.connect(self.limpiar)
+        self.boton_consultar.clicked.connect(self.limpiar)
+        self.boton_eliminar.clicked.connect(self.limpiar)
+        self.boton_buscar.clicked.connect(self.limpiar)
 
 
 
@@ -73,11 +73,10 @@ class Load_ui_productos(QtWidgets.QMainWindow):
 
 
     def limpiar(self):
-        self.productoI.producto.id_product = ""
-        self.productoI.producto.clave = ""
+        self.productoI.producto.id_product = 0
         self.productoI.producto.descripcion = ""
-        self.productoI.producto.existencia = ""
-        self.productoI.producto.precio = ""
+        self.productoI.producto.cantidad = 0
+        self.productoI.producto.precio = 0.0
 
     def menu(self):
         from load.load_iu_menu import VentanaMenu
@@ -91,21 +90,19 @@ class Load_ui_productos(QtWidgets.QMainWindow):
     #Operaciones con el modelo de datos            
     def guardar_producto(self):
 
-        if self.sku_agregar.text() == "" or self.descripcion_agregar.text() == "" or self.existencia_agregar.text() == "" or self.precio_agregar.text() == "":
+        if self.cantidad_agregar.text() == "" or self.descripcion_agregar.text() == "" or self.precio_agregar.text() == "":
             self.label.setText("Todos los campos son obligatorios")
         else:
-            self.productoI.producto.clave = str(self.sku_agregar.text()).upper()
-            self.productoI.producto.descripcion = str(self.descripcion_agregar.text()).lower()
-            self.productoI.producto.existencia = int(self.existencia_agregar.text())
+            self.productoI.producto.descripcion = str(self.descripcion_agregar.text())
+            self.productoI.producto.cantidad = int(self.cantidad_agregar.text())
             self.productoI.producto.precio = float(self.precio_agregar.text())
         
             response = self.productoI.InsertProducto()
 
             if response == "ok":
                 self.label.setText("Producto añadido Existosamente")
-                self.sku_agregar.setText("")
+                self.cantidad_agregar.setText("")
                 self.descripcion_agregar.setText("")
-                self.existencia_agregar.setText("")
                 self.precio_agregar.setText("")
             else:
                 self.label.setText("Error al agregar producto")
@@ -115,42 +112,34 @@ class Load_ui_productos(QtWidgets.QMainWindow):
 
     
     def buscar_guardar_producto(self):
-        self.productoI.producto.clave = str(self.sku_agregar.text()).upper()
-
-        if self.productoI.searchProducto() == []:
-            self.label.setText("No existe ese producto")
-        else:
-            data = self.productoI.searchProducto()[0]
-            self.label.setText("")
-            self.productoI.producto.id_product = int(data[0])
-            str(self.sku_agregar.setText(data[1])).upper()
-            str(self.descripcion_agregar.setText(data[2])).lower()
-            str(self.existencia_agregar.setText(str(data[3])))
-            str(self.precio_agregar.setText(str(data[4])))
+        self.label.setText("Función no disponible en Agregar")
         pass
 
 
     def actualizar_producto(self):
 
-        if self.sku_actualizar.text() == "" or self.descripcion_actualizar.text() == "" or self.existencia_actualizar.text() == "" or self.precio_actualizar.text() == "" :
+        if self.id_producto_actualizar.text() == "" or self.descripcion_actualizar.text() == "" or self.cantidad_actualizar.text() == "" or self.precio_actualizar.text() == "" :
             self.label.setText("Todos los campos son obligatorios")
         else:
-            self.productoI.producto.clave = str(self.sku_actualizar.text()).upper()
-            self.productoI.producto.descripcion = str(self.descripcion_actualizar.text()).lower()
-            self.productoI.producto.existencia = int(self.existencia_actualizar.text())
-            self.productoI.producto.precio = float(self.precio_actualizar.text())
-            
+            try:
+                self.productoI.producto.id_product = int(self.id_producto_actualizar.text())
+                self.productoI.producto.descripcion = str(self.descripcion_actualizar.text())
+                self.productoI.producto.cantidad = int(self.cantidad_actualizar.text())
+                self.productoI.producto.precio = float(self.precio_actualizar.text())
+                
 
-            response = self.productoI.UpdateProducto()
+                response = self.productoI.UpdateProducto()
 
-            if  response == "ok":
-                self.label.setText("Exito al actualizar producto")
-                str(self.sku_actualizar.setText(""))
-                str(self.descripcion_actualizar.setText(""))
-                str(self.existencia_actualizar.setText(str("")))
-                str(self.precio_actualizar.setText(str("")))
-            else:
-                self.label.setText("Error al actualizar producto")
+                if  response == "ok":
+                    self.label.setText("Exito al actualizar producto")
+                    self.id_producto_actualizar.setText("")
+                    self.descripcion_actualizar.setText("")
+                    self.cantidad_actualizar.setText("")
+                    self.precio_actualizar.setText("")
+                else:
+                    self.label.setText("Error al actualizar producto")
+            except ValueError:
+                self.label.setText("Error: ID, Cantidad o Precio inválidos")
 
 
         pass
@@ -158,80 +147,120 @@ class Load_ui_productos(QtWidgets.QMainWindow):
 
     def buscar_actualizar_producto(self):
         
-        self.productoI.producto.clave = str(self.sku_actualizar.text()).upper()
+        if self.id_producto_actualizar.text() == "":
+             self.label.setText("Ingrese ID para buscar")
+             return
 
-        if self.productoI.searchProducto() == []:
-            self.label.setText("No existe ese producto")
-        else:
-            data = self.productoI.searchProducto()[0]
-            self.label.setText("")
-            self.productoI.producto.id_product = int(data[0])
-            str(self.sku_actualizar.setText(data[1])).upper()
-            str(self.descripcion_actualizar.setText(data[2])).lower()
-            str(self.existencia_actualizar.setText(str(data[3])))
-            str(self.precio_actualizar.setText(str(data[4])))
+        try:
+            self.productoI.producto.id_product = int(self.id_producto_actualizar.text())
+
+            if self.productoI.searchProducto() == []:
+                self.label.setText("No existe ese producto")
+            else:
+                data = self.productoI.searchProducto()[0]
+                self.label.setText("")
+            
+                if isinstance(data, dict):
+                    self.id_producto_actualizar.setText(str(data['id_producto']))
+                    self.descripcion_actualizar.setText(str(data['descripcion']))
+                    self.cantidad_actualizar.setText(str(data['cantidad']))
+                    self.precio_actualizar.setText(str(data['precio']))
+                else:
+                    # Fallback si no es dict
+                    self.id_producto_actualizar.setText(str(data[0]))
+                    self.descripcion_actualizar.setText(str(data[1]))
+                    self.precio_actualizar.setText(str(data[2]))
+                    self.cantidad_actualizar.setText(str(data[3]))
+        except ValueError:
+            self.label.setText("ID inválido")
 
         pass
 
 
 
     def eliminar_producto(self):
-        if self.sku_eliminar.text() == "" or self.descripcion_eliminar.text() == "" or self.existencia_eliminar.text() == "" or self.precio_eliminar.text() == "":
-            self.label.setText("Todos los campos son obligatorios")
+        if self.id_producto_eliminar.text() == "":
+            self.label.setText("Ingrese ID para eliminar")
         else:
-            response = self.productoI.DeleteProducto()
-            if  response == "ok":
-                self.label.setText("Exito al eliminar producto")
-                str(self.sku_eliminar.setText(""))
-                str(self.descripcion_eliminar.setText(""))
-                str(self.existencia_eliminar.setText(str("")))
-                str(self.precio_eliminar.setText(str("")))
-            else:
-                self.label.setText("Error al eliminar el producto producto")
+            try:
+                self.productoI.producto.id_product = int(self.id_producto_eliminar.text())
+                response = self.productoI.DeleteProducto()
+                if  response == "ok":
+                    self.label.setText("Exito al eliminar producto")
+                    self.id_producto_eliminar.setText("")
+                    self.descripcion_eliminar.setText("")
+                    self.cantidad_eliminar.setText("")
+                    self.precio_eliminar.setText("")
+                else:
+                    self.label.setText("Error al eliminar el producto")
+            except ValueError:
+                self.label.setText("ID inválido")
 
         pass 
     
 
     def buscar_eliminar_producto(self):
 
-        self.productoI.producto.clave = str(self.sku_eliminar.text()).upper()
-        if self.productoI.searchProducto() == []:
-            self.label.setText("No existe ese producto")
-        else:
-           
-            data = self.productoI.searchProducto()[0]
-            self.label.setText("")
-            self.productoI.producto.id_product = int(data[0])
-            str(self.sku_eliminar.setText(data[1]))
-            str(self.descripcion_eliminar.setText(data[2]))
-            str(self.existencia_eliminar.setText(str(data[3])))
-            str(self.precio_eliminar.setText(str(data[4])))
+        if self.id_producto_eliminar.text() == "":
+             self.label.setText("Ingrese ID para buscar")
+             return
+
+        try:
+            self.productoI.producto.id_product = int(self.id_producto_eliminar.text())
+            if self.productoI.searchProducto() == []:
+                self.label.setText("No existe ese producto")
+            else:
+                data = self.productoI.searchProducto()[0]
+                self.label.setText("")
+                if isinstance(data, dict):
+                    self.id_producto_eliminar.setText(str(data['id_producto']))
+                    self.descripcion_eliminar.setText(str(data['descripcion']))
+                    self.cantidad_eliminar.setText(str(data['cantidad']))
+                    self.precio_eliminar.setText(str(data['precio']))
+                else:
+                    self.id_producto_eliminar.setText(str(data[0]))
+                    self.descripcion_eliminar.setText(str(data[1]))
+                    self.precio_eliminar.setText(str(data[2]))
+                    self.cantidad_eliminar.setText(str(data[3]))
+        except ValueError:
+            self.label.setText("ID inválido")
 
         pass
 
 
     def buscar_general(self):
-        self.productoI.producto.clave = str(self.sku_buscar.text()).upper()
-        if self.productoI.searchProducto() == []:
-            self.label.setText("No existe ese producto")
-        else:
-           
-            data = self.productoI.searchProducto()[0]
-            self.label.setText("")
-            self.productoI.producto.id_product = int(data[0])
-            str(self.sku_buscar.setText(data[1]))
-            str(self.descripcion_buscar.setText(data[2]))
-            str(self.existencia_buscar.setText(str(data[3])))
-            str(self.precio_buscar.setText(str(data[4])))
+        if self.id_producto_buscar.text() == "":
+             self.label.setText("Ingrese ID para buscar")
+             return
 
-            pass
+        try:
+            self.productoI.producto.id_product = int(self.id_producto_buscar.text())
+            if self.productoI.searchProducto() == []:
+                self.label.setText("No existe ese producto")
+            else:
+                data = self.productoI.searchProducto()[0]
+                self.label.setText("")
+                if isinstance(data, dict):
+                    self.id_producto_buscar.setText(str(data['id_producto']))
+                    self.descripcion_buscar.setText(str(data['descripcion']))
+                    self.cantidad_buscar.setText(str(data['cantidad']))
+                    self.precio_buscar.setText(str(data['precio']))
+                else:
+                    self.id_producto_buscar.setText(str(data[0]))
+                    self.descripcion_buscar.setText(str(data[1]))
+                    self.precio_buscar.setText(str(data[2]))
+                    self.cantidad_buscar.setText(str(data[3]))
+        except ValueError:
+            self.label.setText("ID inválido")
+            
+        pass
 
 
     def limpiar_general(self):
-        str(self.sku_buscar.setText(""))
-        str(self.descripcion_buscar.setText(""))
-        str(self.existencia_buscar.setText(str("")))
-        str(self.precio_buscar.setText(str("")))
+        self.id_producto_buscar.setText("")
+        self.descripcion_buscar.setText("")
+        self.cantidad_buscar.setText("")
+        self.precio_buscar.setText("")
 
 
 
@@ -241,18 +270,23 @@ class Load_ui_productos(QtWidgets.QMainWindow):
         fila = 0
 
         for item in data:
-            self.tabla_productos.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(item[1]))) # SKU
-            self.tabla_productos.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(item[2]))) # Nombre
-            self.tabla_productos.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(item[3]))) # Existencia
-            self.tabla_productos.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(item[4]))) # Precio
+            if isinstance(item, dict):
+                self.tabla_productos.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(item.get('id_producto', ''))))
+                self.tabla_productos.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(item.get('descripcion', ''))))
+                self.tabla_productos.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(item.get('precio', ''))))
+                self.tabla_productos.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(item.get('cantidad', ''))))
+                self.tabla_productos.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(item.get('estado', ''))))
+            else:
+                self.tabla_productos.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(item[0])))
+                self.tabla_productos.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(item[1])))
+                self.tabla_productos.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(item[2])))
+                self.tabla_productos.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(item[3])))
+                self.tabla_productos.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(item[4])))
             fila += 1
 
-        # print(response)
     
         
-   
-
-
+    
     ## mover ventana
     def mousePressEvent(self, event):
         self.clickPosition = event.globalPos()

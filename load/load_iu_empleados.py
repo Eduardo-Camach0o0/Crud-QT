@@ -75,9 +75,11 @@ class Load_ui_empleados(QtWidgets.QMainWindow):
     def limpiar(self):
         self.empleadoI.empleado.idEmpleado = 0
         self.empleadoI.empleado.Nombre = ""
-        self.empleadoI.empleado.CuentaClabe = ""
-        self.empleadoI.empleado.Turno = 0
-        self.empleadoI.empleado.Ingreso = ""
+        self.empleadoI.empleado.ApellidoPaterno = ""
+        self.empleadoI.empleado.ApellidoMaterno = ""
+        self.empleadoI.empleado.FechaAlta = ""
+        self.empleadoI.empleado.FechaBaja = ""
+        self.empleadoI.empleado.Activo = 0
 
     def menu(self):
         from load.load_iu_menu import VentanaMenu
@@ -91,20 +93,20 @@ class Load_ui_empleados(QtWidgets.QMainWindow):
     #Operaciones con el modelo de datos            
     def guardar_empleado(self):
 
-        if self.sku_agregar.text() == "" or self.descripcion_agregar.text() == "" or self.existencia_agregar.text() == "":
+        if self.nombre_agregar.text() == "" or self.ap_paterno_agregar.text() == "" or self.ap_materno_agregar.text() == "":
             self.label.setText("Todos los campos son obligatorios")
         else:
-            self.empleadoI.empleado.Nombre = str(self.sku_agregar.text()).upper()
-            self.empleadoI.empleado.CuentaClabe = str(self.descripcion_agregar.text()).lower()
-            self.empleadoI.empleado.Turno = int(self.existencia_agregar.text())
+            self.empleadoI.empleado.Nombre = str(self.nombre_agregar.text()).upper()
+            self.empleadoI.empleado.ApellidoPaterno = str(self.ap_paterno_agregar.text()).upper()
+            self.empleadoI.empleado.ApellidoMaterno = str(self.ap_materno_agregar.text()).upper()
         
             response = self.empleadoI.InsertEmpleado()
 
             if response == "ok":
                 self.label.setText("Empleado añadido Existosamente")
-                self.sku_agregar.setText("")
-                self.descripcion_agregar.setText("")
-                self.existencia_agregar.setText("")
+                self.nombre_agregar.setText("")
+                self.ap_paterno_agregar.setText("")
+                self.ap_materno_agregar.setText("")
             else:
                 self.label.setText("Error al agregar empleado")
 
@@ -113,137 +115,166 @@ class Load_ui_empleados(QtWidgets.QMainWindow):
 
     
     def buscar_guardar_empleado(self):
-        self.empleadoI.empleado.Nombre = str(self.sku_agregar.text()).upper()
+        # Assuming user enters ID in the Name field for searching
+        try:
+            self.empleadoI.empleado.idEmpleado = int(self.nombre_agregar.text())
+        except ValueError:
+            self.label.setText("Ingrese un ID valido en el campo Nombre")
+            return
 
         if self.empleadoI.searchEmpleado() == []:
             self.label.setText("No existe ese empleado")
         else:
             data = self.empleadoI.searchEmpleado()[0]
             self.label.setText("")
-            self.empleadoI.empleado.idEmpleado = int(data[0])
-            str(self.sku_agregar.setText(data[1])).upper()
-            str(self.descripcion_agregar.setText(data[2])).lower()
-            str(self.existencia_agregar.setText(str(data[3])))
-            # str(self.precio_agregar.setText(str(data[3])))
+            self.empleadoI.empleado.idEmpleado = int(data['id_empleados'])
+            self.nombre_agregar.setText(str(data['nombre']))
+            self.ap_paterno_agregar.setText(str(data['apellido_paterno']))
+            self.ap_materno_agregar.setText(str(data['apellido_materno']))
         pass
 
 
     def actualizar_empleado(self):
 
-        if self.sku_actualizar.text() == "" or self.descripcion_actualizar.text() == "" or self.existencia_actualizar.text() == "" or self.precio_actualizar.text() == "" :
+        if self.nombre_actualizar.text() == "" or self.ap_paterno_actualizar.text() == "" or self.ap_materno_actualizar.text() == "":
             self.label.setText("Todos los campos son obligatorios")
         else:
-            self.empleadoI.empleado.Nombre = str(self.sku_actualizar.text()).upper()
-            self.empleadoI.empleado.CuentaClabe = str(self.descripcion_actualizar.text()).lower()
-            self.empleadoI.empleado.Turno = int(self.existencia_actualizar.text())
-            self.empleadoI.empleado.Ingreso = str(self.precio_actualizar.text())
+            # ID should have been set by search
+            if self.empleadoI.empleado.idEmpleado == 0:
+                 self.label.setText("Primero busque el empleado por ID")
+                 return
+
+            self.empleadoI.empleado.Nombre = str(self.nombre_actualizar.text()).upper()
+            self.empleadoI.empleado.ApellidoPaterno = str(self.ap_paterno_actualizar.text()).upper()
+            self.empleadoI.empleado.ApellidoMaterno = str(self.ap_materno_actualizar.text()).upper()
             
 
             response = self.empleadoI.UpdateEmpleado()
 
             if  response == "ok":
                 self.label.setText("Exito al actualizar empleado")
-                str(self.sku_actualizar.setText(""))
-                str(self.descripcion_actualizar.setText(""))
-                str(self.existencia_actualizar.setText(str("")))
-                str(self.precio_actualizar.setText(str("")))
+                self.nombre_actualizar.setText("")
+                self.ap_paterno_actualizar.setText("")
+                self.ap_materno_actualizar.setText("")
             else:
                 self.label.setText("Error al actualizar empleado")
-
 
         pass
 
 
     def buscar_actualizar_empleado(self):
-        
-        self.empleadoI.empleado.Nombre = str(self.sku_actualizar.text()).upper()
+        try:
+            self.empleadoI.empleado.idEmpleado = int(self.nombre_actualizar.text())
+        except ValueError:
+            self.label.setText("Ingrese un ID valido en el campo Nombre")
+            return
 
         if self.empleadoI.searchEmpleado() == []:
             self.label.setText("No existe ese empleado")
         else:
             data = self.empleadoI.searchEmpleado()[0]
             self.label.setText("")
-            self.empleadoI.empleado.idEmpleado = int(data[0])
-            str(self.sku_actualizar.setText(data[1])).upper()
-            str(self.descripcion_actualizar.setText(data[2])).lower()
-            str(self.existencia_actualizar.setText(str(data[3])))
-            str(self.precio_actualizar.setText(str(data[4])))
+            self.empleadoI.empleado.idEmpleado = int(data['id_empleados'])
+            self.nombre_actualizar.setText(str(data['nombre']))
+            self.ap_paterno_actualizar.setText(str(data['apellido_paterno']))
+            self.ap_materno_actualizar.setText(str(data['apellido_materno']))
+            self.precio_actualizar.setText(str(data['fecha_alta']))
 
         pass
 
 
-
     def eliminar_empleado(self):
-        if self.sku_eliminar.text() == "" or self.descripcion_eliminar.text() == "" or self.existencia_eliminar.text() == "" or self.precio_eliminar.text() == "":
-            self.label.setText("Todos los campos son obligatorios")
+        # ID should have been set by search
+        if self.empleadoI.empleado.idEmpleado == 0:
+             # Try to parse from field if user just typed it
+             try:
+                self.empleadoI.empleado.idEmpleado = int(self.nombre_eliminar.text())
+             except ValueError:
+                self.label.setText("Busque por ID o ingrese ID valido")
+                return
+
+        response = self.empleadoI.DeleteEmpleado()
+        if  response == "ok":
+            self.label.setText("Exito al eliminar empleado")
+            self.nombre_eliminar.setText("")
+            self.ap_paterno_eliminar.setText("")
+            self.ap_materno_eliminar.setText("")
+            self.precio_eliminar.setText("")
         else:
-            response = self.empleadoI.DeleteEmpleado()
-            if  response == "ok":
-                self.label.setText("Exito al eliminar empleado")
-                str(self.sku_eliminar.setText(""))
-                str(self.descripcion_eliminar.setText(""))
-                str(self.existencia_eliminar.setText(str("")))
-                str(self.precio_eliminar.setText(str("")))
-            else:
-                self.label.setText("Error al eliminar el empleado empleado")
+            self.label.setText("Error al eliminar el empleado")
 
         pass 
     
 
     def buscar_eliminar_empleado(self):
+        try:
+            self.empleadoI.empleado.idEmpleado = int(self.nombre_eliminar.text())
+        except ValueError:
+            self.label.setText("Ingrese un ID valido en el campo Nombre")
+            return
 
-        self.empleadoI.empleado.Nombre = str(self.sku_eliminar.text()).upper()
         if self.empleadoI.searchEmpleado() == []:
             self.label.setText("No existe ese empleado")
         else:
            
             data = self.empleadoI.searchEmpleado()[0]
             self.label.setText("")
-            self.empleadoI.empleado.idEmpleado = int(data[0])
-            str(self.sku_eliminar.setText(data[1]))
-            str(self.descripcion_eliminar.setText(data[2]))
-            str(self.existencia_eliminar.setText(str(data[3])))
-            str(self.precio_eliminar.setText(str(data[4])))
+            self.empleadoI.empleado.idEmpleado = int(data['id_empleados'])
+            self.nombre_eliminar.setText(str(data['nombre']))
+            self.ap_paterno_eliminar.setText(str(data['apellido_paterno']))
+            self.ap_materno_eliminar.setText(str(data['apellido_materno']))
+            self.precio_eliminar.setText(str(data['fecha_alta']))
 
         pass
 
 
     def buscar_general(self):
-        self.empleadoI.empleado.Nombre = str(self.sku_buscar.text()).upper()
+        try:
+            self.empleadoI.empleado.idEmpleado = int(self.nombre_buscar.text())
+        except ValueError:
+            self.label.setText("Ingrese un ID valido en el campo Nombre")
+            return
+
         if self.empleadoI.searchEmpleado() == []:
             self.label.setText("No existe ese empleado")
         else:
            
             data = self.empleadoI.searchEmpleado()[0]
             self.label.setText("")
-            self.empleadoI.empleado.id_product = int(data[0])
-            str(self.sku_buscar.setText(data[1]))
-            str(self.descripcion_buscar.setText(data[2]))
-            str(self.existencia_buscar.setText(str(data[3])))
-            str(self.precio_buscar.setText(str(data[4])))
+            self.empleadoI.empleado.idEmpleado = int(data['id_empleados'])
+            self.nombre_buscar.setText(str(data['nombre']))
+            self.ap_paterno_buscar.setText(str(data['apellido_paterno']))
+            self.ap_materno_buscar.setText(str(data['apellido_materno']))
+            self.precio_buscar.setText(str(data['fecha_alta']))
 
             pass
 
 
     def limpiar_general(self):
-        str(self.sku_buscar.setText(""))
-        str(self.descripcion_buscar.setText(""))
-        str(self.existencia_buscar.setText(str("")))
-        str(self.precio_buscar.setText(str("")))
-
+        self.nombre_buscar.setText("")
+        self.ap_paterno_buscar.setText("")
+        self.ap_materno_buscar.setText("")
+        self.precio_buscar.setText("")
 
 
     def actualizar_tabla(self):
         data = self.empleadoI.selectEmpleado()
-        self.tabla_productos.setRowCount(len(data))
-        fila = 0
+        if data:
+            self.tabla_productos.setRowCount(len(data))
+            fila = 0
 
-        for item in data:
-            self.tabla_productos.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(item[1]))) 
-            self.tabla_productos.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(item[2]))) 
-            self.tabla_productos.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(item[3]))) 
-            self.tabla_productos.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(item[4]))) 
-            fila += 1
+            for item in data:
+                # Assuming DictCursor, keys are column names
+                self.tabla_productos.setItem(fila, 0, QtWidgets.QTableWidgetItem(str(item['id_empleados']))) 
+                self.tabla_productos.setItem(fila, 1, QtWidgets.QTableWidgetItem(str(item['nombre']))) 
+                self.tabla_productos.setItem(fila, 2, QtWidgets.QTableWidgetItem(str(item['apellido_paterno']))) 
+                self.tabla_productos.setItem(fila, 3, QtWidgets.QTableWidgetItem(str(item['apellido_materno']))) 
+                self.tabla_productos.setItem(fila, 4, QtWidgets.QTableWidgetItem(str(item['fecha_alta'])))
+                self.tabla_productos.setItem(fila, 5, QtWidgets.QTableWidgetItem(str(item['fecha_baja'] if item['fecha_baja'] else "")))
+                self.tabla_productos.setItem(fila, 6, QtWidgets.QTableWidgetItem(str(item['activo'])))
+                fila += 1
+        else:
+             self.tabla_productos.setRowCount(0)
 
         # print(response)
     

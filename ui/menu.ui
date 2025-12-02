@@ -18,15 +18,16 @@
    <string notr="true">
 /* Fondo principal (el widget central) */
 QWidget#centralwidget {
-    background-color: #3c3c3c; /* Gris oscuro, no negro */
+    background-color: #f6f8f6; /* Fondo claro */
+    font-family: &quot;Segoe UI&quot;, &quot;Work Sans&quot;, sans-serif;
 }
 
-/* Estilo general de botones (Productos, Empleados) */
+/* Estilo general de botones (Productos, Empleados, Panel Principal) */
 QPushButton {
-    background-color: #555555; /* Botones más claros */
-    color: #f0f0f0;
-    border: 1px solid #666666;
-    border-radius: 6px;
+    background-color: #ffffff;
+    color: #1f2937;
+    border: 1px solid #e5e7eb;
+    border-radius: 8px;
     padding: 10px 20px;
     font-weight: bold;
     font-size: 11pt;
@@ -34,32 +35,32 @@ QPushButton {
 }
 
 QPushButton:hover {
-    background-color: #666666;
-    border: 1px solid #777777;
+    background-color: #f3f4f6;
+    border: 1px solid #d1d5db;
 }
 
 QPushButton:pressed {
-    background-color: #777777;
+    background-color: #e5e7eb;
 }
 
 /* Botón de salir (rojo) */
 #boton_logout {
-    background-color: #c62828;
-    color: white;
-    border: none;
+    background-color: #fee2e2;
+    color: #991b1b;
+    border: 1px solid #fecaca;
 }
 
 #boton_logout:hover {
-    background-color: #e53935;
+    background-color: #fecaca;
 }
 
 #boton_logout:pressed {
-    background-color: #b71c1c;
+    background-color: #fca5a5;
 }
 
-/* Estilo para QMainWindow (para que la barra de menú no se vea blanca) */
+/* Estilo para QMainWindow */
 QMainWindow {
-    background-color: #3c3c3c;
+    background-color: #f6f8f6;
 }
 </string>
   </property>
@@ -97,6 +98,13 @@ QMainWindow {
      <layout class="QVBoxLayout" name="verticalLayout">
       <property name="spacing">
        <number>15</number> </property>
+      <item>
+       <widget class="QPushButton" name="boton_panel_principal">
+        <property name="text">
+         <string>Panel Principal</string>
+        </property>
+       </widget>
+      </item>
       <item>
        <widget class="QPushButton" name="boton_productos">
         <property name="text">

@@ -1,76 +1,65 @@
-from modelo.conexion import Conexion
+from modelo.conexion import get_connection
 from modelo.empleado import Empleado
+
+# from conexion import get_connection
+# from empleado import Empleado
 
 class EmpleadosAct():
 
     def __init__(self):
-        self.conexion = Conexion()
         self.empleado = Empleado()
 
+    def execute_procedure(self, procedure_name, args=None):
+        conn = get_connection()
+        try:
+            with conn.cursor() as cursor:
+                cursor.callproc(procedure_name, args or [])
+            conn.commit()
+            return "ok"
+        except Exception as e:
+            print(f"Error executing {procedure_name}: {e}")
+            return None
+        finally:
+            conn.close()
+
+    def fetch_procedure(self, procedure_name, args=None):
+        conn = get_connection()
+        try:
+            with conn.cursor() as cursor:
+                cursor.callproc(procedure_name, args or [])
+                return cursor.fetchall()
+        except Exception as e:
+            print(f"Error fetching {procedure_name}: {e}")
+            return []
+        finally:
+            conn.close()
+
     def selectEmpleado(self):
-        self.conexion.establecerConexio()
-        cursor =  self.conexion.conexion.cursor()
-        query = "SELECT * FROM Empleados"
-        cursor.execute(query)
-        filas = cursor.fetchall()
-
-        for fila in filas:
-            print(fila)
-        
-        self.conexion.cerrarConexion()
-
-        return filas
+        return self.fetch_procedure("sp_empleado_listar")
 
     def InsertEmpleado(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_insertar_empleado] @Nombre=?, @CuentaClabe=?, @Turno=?"
-        param = (self.empleado.Nombre,self.empleado.CuentaClabe, self.empleado.Turno)
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-        return "ok"
+        return self.execute_procedure("sp_empleado_nuevo", [
+            self.empleado.Nombre, 
+            self.empleado.ApellidoPaterno, 
+            self.empleado.ApellidoMaterno
+        ])
     
     def UpdateEmpleado(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_actualizar_empleado] @IdEmpleado=?,@Nombre=?, @CuentaClabe=?, @Turno=?"
-        param = (self.empleado.idEmpleado,self.empleado.Nombre,self.empleado.CuentaClabe, self.empleado.Turno)
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-        return "ok"
+        return self.execute_procedure("sp_empleado_actualizar", [
+            self.empleado.idEmpleado, 
+            self.empleado.Nombre, 
+            self.empleado.ApellidoPaterno, 
+            self.empleado.ApellidoMaterno
+        ])
 
     def DeleteEmpleado(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_eliminar_empleado]@IdEmpleado=?"
-        param = (self.empleado.idEmpleado, )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        print("ok")
-
-        return "ok"
+        return self.execute_procedure("sp_empleado_eliminar", [self.empleado.idEmpleado])
 
     def searchEmpleado(self):
-        self.conexion.establecerConexio()
-        sp = "exec [dbo].[sp_BuscarEmpleado] @Name_Empleado=?"
-        param = (self.empleado.Nombre, )
-        cursor =  self.conexion.conexion.cursor()
-        cursor.execute(sp, param)
-        fila = cursor.fetchall()
-        cursor.commit()
-        self.conexion.cerrarConexion()
-        return fila
-
-
-
+        return self.fetch_procedure("sp_empleado_buscar", [self.empleado.idEmpleado])
 
 # a = EmpleadosAct()
-# a.InsertEmpleado()
+# print(a.InsertEmpleado())
 # a.selectProductos()
 # a.UpdateProducto()
 # a.DeleteProducto()
